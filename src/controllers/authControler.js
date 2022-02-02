@@ -1,24 +1,7 @@
-import express, { json } from "express";
-import cors from "cors";
-import { MongoClient, ObjectId } from "mongodb";
-import dayjs from "dayjs";
-import "dayjs/locale/pt-br.js";
 import joi from "joi";
-import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import { v4 as uuid } from "uuid";
-
-dotenv.config();
-
-const mongoClient = new MongoClient(process.env.MONGO_URI);
-let db;
-mongoClient.connect(() => {
-  db = mongoClient.db("my-wallet");
-});
-
-const server = express();
-server.use(json());
-server.use(cors());
+import db from "../db.js";
 
 const signUpSchema = joi.object({
   name: joi.string().min(3).lowercase().trim().required(),
@@ -31,7 +14,7 @@ const loginSchema = joi.object({
   password: joi.string().min(6).required(),
 });
 
-server.post("/sign-up", async (req, res) => {
+export async function singUp(req, res) {
   const user = req.body;
 
   const validation = signUpSchema.validate(user, { abortEarly: false });
@@ -57,9 +40,9 @@ server.post("/sign-up", async (req, res) => {
   } catch (error) {
     res.status(500).send(error);
   }
-});
+}
 
-server.post("/login", async (req, res) => {
+export async function login(req, res) {
   const { email, password } = req.body;
 
   const validation = loginSchema.validate(req.body, { abortEarly: false });
@@ -84,8 +67,4 @@ server.post("/login", async (req, res) => {
   } catch (error) {
     res.status(500).send(error);
   }
-});
-
-server.listen(5000, () => {
-  console.log("Server is listening on port 5000");
-});
+}
