@@ -1,11 +1,12 @@
-import joi from "joi";
-import bcrypt from "bcrypt";
-import { v4 as uuid } from "uuid";
 import db from "../db.js";
 
-export async function addIncome(req, res) {}
+export async function addIncome(req, res) {
+  const user = res.locals.user;
+}
 
-export async function addExpense(req, res) {}
+export async function addExpense(req, res) {
+  const { user } = res.locals;
+}
 
 export async function editIncome(req, res) {}
 

@@ -7,8 +7,11 @@ import {
   deleteIncome,
   deleteExpense,
 } from "../controllers/transactionsController.js";
+import { validateToken } from "../middleware/validateToken.js";
 
 const transactionsRouter = Router();
+
+transactionsRouter.use(validateToken);
 
 transactionsRouter.post("/add-income", addIncome);
 transactionsRouter.post("/add-expense", addExpense);

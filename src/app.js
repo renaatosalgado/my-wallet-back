@@ -1,7 +1,5 @@
 import express, { json } from "express";
 import cors from "cors";
-import dayjs from "dayjs";
-import "dayjs/locale/pt-br.js";
 import router from "./routes/index.js";
 
 const server = express();
