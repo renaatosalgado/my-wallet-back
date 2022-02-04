@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  getTransactions,
   addIncome,
   addExpense,
   editIncome,
@@ -13,13 +14,17 @@ import { validateTransaction } from "../middleware/validateTransactionMiddleware
 const transactionsRouter = Router();
 
 transactionsRouter.use(validateToken);
-transactionsRouter.use(validateTransaction);
 
-transactionsRouter.post("/add-income", addIncome);
-transactionsRouter.post("/add-expense", addExpense);
-transactionsRouter.put("/edit-income", editIncome);
-transactionsRouter.put("/edit-expense", editExpense);
-transactionsRouter.delete("/delete-income", deleteIncome);
-transactionsRouter.delete("/delete-expense", deleteExpense);
+transactionsRouter.get("get-transactions", getTransactions);
+transactionsRouter.post("/add-income", validateTransaction, addIncome);
+transactionsRouter.post("/add-expense", validateTransaction, addExpense);
+transactionsRouter.put("/edit-income", validateTransaction, editIncome);
+transactionsRouter.put("/edit-expense", validateTransaction, editExpense);
+transactionsRouter.delete("/delete-income", validateTransaction, deleteIncome);
+transactionsRouter.delete(
+  "/delete-expense",
+  validateTransaction,
+  deleteExpense
+);
 
 export default transactionsRouter;

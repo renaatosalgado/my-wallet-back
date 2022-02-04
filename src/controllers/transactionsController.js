@@ -2,6 +2,10 @@ import db from "../db.js";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br.js";
 
+export async function getTransactions(req, res) {
+  const user = res.locals.user;
+}
+
 export async function addIncome(req, res) {
   const user = res.locals.user;
   const { value, description } = req.body;
@@ -9,7 +13,7 @@ export async function addIncome(req, res) {
   try {
     await db.collection("transactions").insertOne({
       userId: user._id,
-      value,
+      value: Number(value),
       description,
       type: "income",
       date: `${dayjs().format("DD/MM")}`,
@@ -28,7 +32,7 @@ export async function addExpense(req, res) {
   try {
     await db.collection("transactions").insertOne({
       userId: user._id,
-      value,
+      value: Number(value),
       description,
       type: "expense",
       date: `${dayjs().format("DD/MM")}`,
