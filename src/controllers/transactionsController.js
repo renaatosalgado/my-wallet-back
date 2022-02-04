@@ -4,6 +4,14 @@ import "dayjs/locale/pt-br.js";
 
 export async function getTransactions(req, res) {
   const user = res.locals.user;
+
+  try {
+    const transactions = await db.collection("transactions").find({ userId: user._id }).toArray();
+
+    res.send(transactions);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 }
 
 export async function addIncome(req, res) {

@@ -15,7 +15,7 @@ const transactionsRouter = Router();
 
 transactionsRouter.use(validateToken);
 
-transactionsRouter.get("get-transactions", getTransactions);
+transactionsRouter.get("/get-transactions", getTransactions);
 transactionsRouter.post("/add-income", validateTransaction, addIncome);
 transactionsRouter.post("/add-expense", validateTransaction, addExpense);
 transactionsRouter.put("/edit-income", validateTransaction, editIncome);
