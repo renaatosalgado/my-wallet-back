@@ -7,17 +7,19 @@ import {
   deleteIncome,
   deleteExpense,
 } from "../controllers/transactionsController.js";
-import { validateToken } from "../middleware/validateToken.js";
+import { validateToken } from "../middleware/validateTokenMiddleware.js";
+import { validateTransaction } from "../middleware/validateTransactionMiddleware.js";
 
 const transactionsRouter = Router();
 
 transactionsRouter.use(validateToken);
+transactionsRouter.use(validateTransaction);
 
 transactionsRouter.post("/add-income", addIncome);
 transactionsRouter.post("/add-expense", addExpense);
-transactionsRouter.post("/edit-income", editIncome);
-transactionsRouter.post("/edit-expense", editExpense);
-transactionsRouter.post("/delete-income", deleteIncome);
-transactionsRouter.post("/delete-expense", deleteExpense);
+transactionsRouter.put("/edit-income", editIncome);
+transactionsRouter.put("/edit-expense", editExpense);
+transactionsRouter.delete("/delete-income", deleteIncome);
+transactionsRouter.delete("/delete-expense", deleteExpense);
 
 export default transactionsRouter;
