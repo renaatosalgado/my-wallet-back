@@ -63,14 +63,18 @@ export async function editExpense(req, res) {}
 export async function deleteTransaction(req, res) {
   const { transactionId } = req.params;
 
-  const transaction = await db
-    .collection("transactions")
-    .findOne({ _id: ObjectId(transactionId) });
+  try {
+    const transaction = await db
+      .collection("transactions")
+      .findOne({ _id: ObjectId(transactionId) });
 
-  if (!transaction) return res.sendStatus(404);
+    if (!transaction) return res.sendStatus(404);
 
-  await db
-    .collection("transactions")
-    .deleteOne({ _id: ObjectId(transactionId) });
-  res.sendStatus(200);
+    await db
+      .collection("transactions")
+      .deleteOne({ _id: ObjectId(transactionId) });
+    res.sendStatus(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 }

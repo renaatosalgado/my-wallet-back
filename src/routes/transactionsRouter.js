@@ -19,6 +19,9 @@ transactionsRouter.post("/add-income", validateTransaction, addIncome);
 transactionsRouter.post("/add-expense", validateTransaction, addExpense);
 transactionsRouter.put("/edit-income", validateTransaction, editIncome);
 transactionsRouter.put("/edit-expense", validateTransaction, editExpense);
-transactionsRouter.delete("/delete-transactions/:transactionId", deleteTransaction);
+transactionsRouter.delete(
+  "/delete-transactions/:transactionId",
+  deleteTransaction
+);
 
 export default transactionsRouter;
