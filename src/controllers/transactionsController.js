@@ -1,12 +1,16 @@
 import db from "../db.js";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br.js";
+import { ObjectId } from "mongodb";
 
 export async function getTransactions(req, res) {
   const user = res.locals.user;
 
   try {
-    const transactions = await db.collection("transactions").find({ userId: user._id }).toArray();
+    const transactions = await db
+      .collection("transactions")
+      .find({ userId: user._id })
+      .toArray();
 
     res.send(transactions);
   } catch (error) {
@@ -56,6 +60,17 @@ export async function editIncome(req, res) {}
 
 export async function editExpense(req, res) {}
 
-export async function deleteIncome(req, res) {}
+export async function deleteTransaction(req, res) {
+  const { transactionId } = req.params;
 
-export async function deleteExpense(req, res) {}
+  const transaction = await db
+    .collection("transactions")
+    .findOne({ _id: ObjectId(transactionId) });
+
+  if (!transaction) return res.sendStatus(404);
+
+  await db
+    .collection("transactions")
+    .deleteOne({ _id: ObjectId(transactionId) });
+  res.sendStatus(200);
+}
