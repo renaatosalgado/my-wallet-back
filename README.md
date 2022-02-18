@@ -50,4 +50,4 @@ npm run dev
 ```bash
 npm start
 ```
-7. Finally access http://localhost:3000 on your favorite browser.
+7. Finally send requests to http://localhost:PORT/ on your favorite browser or API client
