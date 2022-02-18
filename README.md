@@ -1,9 +1,6 @@
 # My Wallet
 
 An easy to use financial manager. Track your revenues and expenses to learn how you spend your money and know all the time how much you have.
-<p align="center">
-  <img src="/public/assets/my-wallet.gif" />
-</p>
 
 Try it out now at https://my-wallet-eight.vercel.app/
 
